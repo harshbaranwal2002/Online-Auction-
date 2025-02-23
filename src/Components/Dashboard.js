@@ -9,7 +9,7 @@ function Dashboard() {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      nav('/signin'); // Redirect to signin if not authenticated
+      nav('/signin'); // Redirect to Sign In if not authenticated
       return;
     }
 
@@ -21,36 +21,46 @@ function Dashboard() {
         console.error('Error fetching auctions:', error);
       }
     };
+
     fetchItems();
-  }, []);
+  }, [nav]); // ✅ Added 'nav' as a dependency
 
   // 🔹 Handle Logout
-  // const handleLogout = () => {
-  //   localStorage.removeItem('authToken'); // Remove token
-  //   navigate('/signin'); // Redirect to Sign In page
-  // };
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Remove token
+    nav('/signin'); // Redirect to Sign In page
+  };
 
   return (
-    <div>
-      <h2>Auction Dashboard</h2>
+    <div className="p-6 bg-gray-100 min-h-screen text-center">
+      <h2 className="text-3xl font-bold mb-4">Auction Dashboard</h2>
 
-      {/* 🔹 Logout Button 
-      <button onClick={handleLogout} style={{ marginLeft: '10px', background: 'red', color: 'white' }}>
+      {/* 🔹 Logout Button */}
+      <button 
+        onClick={handleLogout} 
+        className="bg-red-500 text-white px-4 py-2 rounded-lg mb-4"
+      >
         Logout
-      </button>*/}
+      </button>
 
       <Link to="/post-auction">
-        <button>Post New Auction</button>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg ml-4">
+          Post New Auction
+        </button>
       </Link>
 
-      <ul>
-        {items.map((item) => (
-          <li key={item._id}>
-            <Link to={`/auction/${item._id}`}>
-              {item.itemName} - Current Bid: ${item.currentBid} {item.isClosed ? '(Closed)' : ''}
-            </Link>
-          </li>
-        ))}
+      <ul className="mt-6">
+        {items.length === 0 ? (
+          <p className="text-gray-600">No auctions available.</p>
+        ) : (
+          items.map((item) => (
+            <li key={item._id} className="mb-2 text-lg">
+              <Link to={`/auction/${item._id}`} className="text-blue-600 hover:underline">
+                {item.itemName} - Current Bid: ${item.currentBid} {item.isClosed ? '(Closed)' : ''}
+              </Link>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
