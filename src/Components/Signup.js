@@ -20,7 +20,8 @@ function Signup() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5001/signup', {
+      // ✅ Fixed: Removed unused 'res' assignment
+      await axios.post('http://localhost:5001/signup', {
         username,
         password
       });
@@ -60,3 +61,4 @@ function Signup() {
 }
 
 export default Signup;
+
