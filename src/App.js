@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
-import Signup from './Components/Signup.';
-import Signin from './Components/Signin.';
-import Dashboard from './components/Dashboard.';
-import AuctionItem from './Components/AuctionItem.';
-import PostAuction from './Components/PostAuction.';
-import Landing from './components/Landing.';
+import Signup from './Components/Signup';
+import Signin from './Components/Signin';
+import Dashboard from './Components/Dashboard';
+import AuctionItem from './Components/AuctionItem';
+import PostAuction from './Components/PostAuction';
+import Landing from './Components/Landing';
 import './App.css';
 
 function App() {
